@@ -26,6 +26,7 @@
 
 static const char* kGroupName       = "CustomSettings";
 static const char* kShowGimbalCtl   = "ShowGimbalCtl";
+static const char* kUseEmbeddedGimbal  = "UseEmbeddedGimbal";
 static const char* kShowAttitudeWidget = "ShowAttitudeWidget";
 static const char* kVirtualKeyboard = "ShowVirtualKeyboard";
 
@@ -49,6 +50,7 @@ CustomQuickInterface::init()
     QSettings settings;
     settings.beginGroup(kGroupName);
     _showGimbalControl = settings.value(kShowGimbalCtl, false).toBool();
+    _useEmbeddedGimbal = settings.value(kUseEmbeddedGimbal, false).toBool();
     _showAttitudeWidget = settings.value(kShowAttitudeWidget, false).toBool();
     _showVirtualKeyboard = settings.value(kVirtualKeyboard, false).toBool();
 }
@@ -63,6 +65,19 @@ CustomQuickInterface::setShowGimbalControl(bool set)
         settings.beginGroup(kGroupName);
         settings.setValue(kShowGimbalCtl,set);
         emit showGimbalControlChanged();
+    }
+}
+
+//-----------------------------------------------------------------------------
+void
+CustomQuickInterface::setUseEmbeddedGimbal(bool set)
+{
+    if(_useEmbeddedGimbal != set) {
+        _useEmbeddedGimbal = set;
+        QSettings settings;
+        settings.beginGroup(kGroupName);
+        settings.setValue(kUseEmbeddedGimbal, set);
+        emit useEmbeddedGimbalChanged();
     }
 }
 

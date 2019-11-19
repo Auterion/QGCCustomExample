@@ -869,10 +869,29 @@ Item {
                         visible:    _cameraPhotoMode && _camera.photoMode === QGCCameraControl.PHOTO_CAPTURE_TIMELAPSE && !_noSdCard
                     }
                     //-------------------------------------------
-                    //-- Gimbal Control
+                    //-- Camera Embedded Pitch Gimbal Control
                     Row {
                         spacing:        ScreenTools.defaultFontPixelWidth
                         visible:        _camera && !_camera.isThermal
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        QGCLabel {
+                            text:       qsTr("Use Camera Gimbal Control")
+                            width:      _labelFieldWidth
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        CustomOnOffSwitch {
+                            checked:    CustomQuickInterface.useEmbeddedGimbal
+                            width:      _editFieldWidth
+                            height:     _editFieldHeight
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked:  CustomQuickInterface.useEmbeddedGimbal = checked
+                        }
+                    }
+                    //-------------------------------------------
+                    //-- Gimbal Control
+                    Row {
+                        spacing:        ScreenTools.defaultFontPixelWidth
+                        visible:        !CustomQuickInterface.useEmbeddedGimbal && _camera && !_camera.isThermal
                         anchors.horizontalCenter: parent.horizontalCenter
                         QGCLabel {
                             text:       qsTr("Show Gimbal Control")
